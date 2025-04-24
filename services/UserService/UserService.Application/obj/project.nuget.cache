@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "9pne3TKlJwCAuQCcw00mxtjBR40+B64yz/2CsxX0zMGpmW5gJNp5JIQpWhcRiWmIPCQUGANxQi+2DKLtzfYmsA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pedro\\Desktop\\Overkill-Microservices\\services\\UserService\\UserService.Application\\UserService.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pedro\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\pedro\\.nuget\\packages\\mediatr\\12.5.0\\mediatr.12.5.0.nupkg.sha512",
+    "C:\\Users\\pedro\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\pedro\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
