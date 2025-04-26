@@ -2,7 +2,7 @@
 
 public class User
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public string Id { get; private set; } = Ulid.NewUlid().ToString();
     public string Name { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
@@ -12,7 +12,7 @@ public class User
     public string Role { get; private set; }
     public DateTime? LastLoginAt { get; private set; }
 
-    public static User Create(string name, string email, string passwordHash, string role = "User")
+    public User Create(string name, string email, string passwordHash, string role = "User")
     {
         return new User
         {

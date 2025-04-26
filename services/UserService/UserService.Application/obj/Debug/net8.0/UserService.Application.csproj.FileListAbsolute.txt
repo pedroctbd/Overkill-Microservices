@@ -11,3 +11,6 @@ C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.A
 C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\obj\Debug\net8.0\refint\UserService.Application.dll
 C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\obj\Debug\net8.0\UserService.Application.pdb
 C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\obj\Debug\net8.0\ref\UserService.Application.dll
+C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\bin\Debug\net8.0\UserService.Domain.dll
+C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\bin\Debug\net8.0\UserService.Domain.pdb
+C:\Users\pedro\Desktop\Overkill-Microservices\services\UserService\UserService.Application\obj\Debug\net8.0\UserServ.9A0DA653.Up2Date

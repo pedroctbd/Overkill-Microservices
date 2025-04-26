@@ -1,0 +1,98 @@
+## Ignore Visual Studio temporary files, build results, and
+## user-specific files
+
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Backup & crash files
+*.bak
+*.swp
+*.tmp
+*.log
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# EF Core Migrations snapshots
+Migrations/*Snapshot.cs
+
+# dotenv files
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# Secrets
+secrets.json
+
+# IIS Express
+.vs/
+*.vspscc
+*.vssscc
+*.dbmdl
+*.dbml
+
+# Node-related (if using frontend)
+node_modules/
+dist/
+build/
+
+# Docker
+*.pid
+*.seed
+docker-compose.override.yml
+docker-compose.generated.yml
+
+# Testing
+TestResults/
+*.coverage
+*.coveragexml
+*.testsettings
+*.vsmdi
+
+# Publish outputs
+*.publish.xml
+publish/
+
+# OS-generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# JetBrains Rider
+.idea/
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Entity Framework tools
+*.efproj
+
+# Local database
+*.mdf
+*.ldf
+*.db
+*.sqlite
+
+# Coverage
+coverage/
+coverage*.json
+lcov-report/
