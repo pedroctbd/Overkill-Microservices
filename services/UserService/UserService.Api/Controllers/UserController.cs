@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Application.User.Commands;
-using UserService.Application.User.Queries;
+using UserService.Application.Users.Commands;
+using UserService.Application.Users.Queries;
 
 namespace UserService.Api.Controllers;
 
@@ -22,7 +21,6 @@ public class UserController : ControllerBase
     }
 
 
-    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateUserCmd request)
     {

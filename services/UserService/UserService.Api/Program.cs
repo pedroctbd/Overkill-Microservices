@@ -1,5 +1,12 @@
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using UserService.Domain;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using UserService.Application;
+using UserService.Application.SeedWork;
+using UserService.Domain.Users;
 using UserService.Infra.Data.Persistence;
 using UserService.Infra.Data.Persistence.Repositories;
 
@@ -16,7 +23,13 @@ builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
+// Behaviors.
+var assembly = AppDomain.CurrentDomain.Load("UserService.Application");
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FailFastBehavior<,>));
+AssemblyScanner .FindValidatorsInAssembly(assembly).ForEach(result => builder.Services.AddScoped(result.InterfaceType, result.ValidatorType));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
 
 var app = builder.Build();
@@ -35,3 +48,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
