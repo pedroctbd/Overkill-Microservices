@@ -16,6 +16,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Domain", "UserS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Infra.Data", "UserService.Infra.Data\UserService.Infra.Data.csproj", "{EA3FCF4C-27F9-4811-9DEF-2C6F8309F3FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Domain", "..\..\shared\messaging\EventBus.Domain\EventBus.Domain.csproj", "{310EC451-D573-CD1A-D9CE-59914EF1FFBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,9 +42,16 @@ Global
 		{EA3FCF4C-27F9-4811-9DEF-2C6F8309F3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA3FCF4C-27F9-4811-9DEF-2C6F8309F3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA3FCF4C-27F9-4811-9DEF-2C6F8309F3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310EC451-D573-CD1A-D9CE-59914EF1FFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310EC451-D573-CD1A-D9CE-59914EF1FFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310EC451-D573-CD1A-D9CE-59914EF1FFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310EC451-D573-CD1A-D9CE-59914EF1FFBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{310EC451-D573-CD1A-D9CE-59914EF1FFBF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55C343D8-B4A8-4C79-A9E0-0DF5FD7A8780}

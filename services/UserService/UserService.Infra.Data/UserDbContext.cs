@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UserService.Domain.Users;
 
-namespace UserService.Infra.Data.Persistence;
+namespace UserService.Infra.Data;
 
 public class UserDbContext : DbContext
 {

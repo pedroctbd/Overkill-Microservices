@@ -10,4 +10,8 @@
     <PackageReference Include="Ulid" Version="1.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\messaging\EventBus.Domain\EventBus.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

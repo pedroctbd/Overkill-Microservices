@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UserService.Domain.Users;
 
-namespace UserService.Infra.Data.Persistence.Repositories;
+namespace UserService.Infra.Data.Repositories;
 
 public class UserRepository : IUserRepository
 {
