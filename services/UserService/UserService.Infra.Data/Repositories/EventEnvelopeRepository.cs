@@ -5,9 +5,9 @@ namespace UserService.Infra.Data.Repositories;
 
 public class EventEnvelopeRepository : IEventEnvelopeRepository
 {
-    private readonly EventEnvelopeDbContext _context;
+    private readonly AppDbContext _context;
 
-    public EventEnvelopeRepository(EventEnvelopeDbContext context)
+    public EventEnvelopeRepository(AppDbContext context)
     {
         _context = context;
     }
@@ -15,7 +15,6 @@ public class EventEnvelopeRepository : IEventEnvelopeRepository
     public async Task AddAsync<T>(EventEnvelope<T> envelope) where T : IEvent
     {
         var entity = EventEnvelopeMapper.ToEntity(envelope);
-        _context.EventEnvelopes.Add(entity);
-        await _context.SaveChangesAsync();
+        await _context.EventEnvelopes.AddAsync(entity);
     }
 }

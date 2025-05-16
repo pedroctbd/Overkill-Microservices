@@ -1,4 +1,5 @@
 ﻿using EventBus.Domain;
+using System.Text.Json;
 
 namespace EventBus.Api;
 

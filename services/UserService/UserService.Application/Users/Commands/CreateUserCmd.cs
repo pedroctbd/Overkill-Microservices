@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UserService.Application.SeedWork;
+using UserService.Domain;
 using UserService.Domain.Users;
 
 namespace UserService.Application.Users.Commands;
@@ -20,14 +21,12 @@ public class CreateUserCmdValidator : AbstractValidator<CreateUserCmd>
 
 public class CreateUserCmdHandler : IRequestHandler<CreateUserCmd, Response>
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IEventEnvelopeRepository _eventEnvelopeRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordHasher<User> _passwordHasher;
-    public CreateUserCmdHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IEventEnvelopeRepository eventEnvelopeRepository)
+    public CreateUserCmdHandler(IUnitOfWork unitOfWork, IPasswordHasher<User> passwordHasher)
     {
-        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
         _passwordHasher = passwordHasher;
-        _eventEnvelopeRepository = eventEnvelopeRepository;
     }
 
     public async Task<Response> Handle(CreateUserCmd request, CancellationToken cancellationToken)
@@ -40,7 +39,7 @@ public class CreateUserCmdHandler : IRequestHandler<CreateUserCmd, Response>
         newUser.PasswordHash = passwordHash;
         newUser.Role = request.Role;
 
-        await _userRepository.AddAsync(newUser);
+        await _unitOfWork.UserRepository.AddAsync(newUser);
 
         var userEvent = new UserCreatedEvent( newUser.Id ) { CreatedAt = DateTimeOffset.Now };
 
@@ -49,8 +48,8 @@ public class CreateUserCmdHandler : IRequestHandler<CreateUserCmd, Response>
            userEvent
         );
 
-        await _eventEnvelopeRepository.AddAsync(kafkaEvent);
-
+        await _unitOfWork.EventEnvelopeRepository.AddAsync(kafkaEvent);
+        await _unitOfWork.SaveChangesAsync();
         return new Response(newUser);
     }
 }

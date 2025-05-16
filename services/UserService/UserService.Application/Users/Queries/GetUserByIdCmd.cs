@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using UserService.Application.SeedWork;
+using UserService.Domain;
 using UserService.Domain.Users;
 
 namespace UserService.Application.Users.Queries;
@@ -18,17 +19,17 @@ public class GetUserByIdCmdValidator : AbstractValidator<GetUserByIdCmd>
 
 public class GetUserByIdCmdHandler : IRequestHandler<GetUserByIdCmd, Response>
 {
-    private readonly IUserRepository _userRepository;
-    public GetUserByIdCmdHandler(IUserRepository userRepository)
+    private readonly IUnitOfWork _unitOfWork;
+    public GetUserByIdCmdHandler(IUnitOfWork unitOfWork)
     {
-        
-        _userRepository = userRepository;
+
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Response> Handle(GetUserByIdCmd request, CancellationToken cancellationToken)
     {
 
-        return new Response(await _userRepository.GetByIdAsync(request.Id));
+        return new Response(await _unitOfWork.UserRepository.GetByIdAsync(request.Id));
 
     }
 }

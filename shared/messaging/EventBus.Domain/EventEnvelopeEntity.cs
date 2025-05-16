@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EventBus.Api;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace EventBus.Domain;
 
@@ -13,4 +15,6 @@ public class EventEnvelopeEntity
     public string InitiatorId { get; set; } = default!;
     public string? PartitionId { get; set; }
     public string MetadataJson { get; set; } = "{}";
-}
+};
+
+
