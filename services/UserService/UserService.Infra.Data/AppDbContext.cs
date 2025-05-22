@@ -1,7 +1,8 @@
-﻿using EventBus.Domain;
+﻿using EventBus.Api;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserService.Domain.Users;
-
+using Newtonsoft.Json;
 namespace UserService.Infra.Data;
 
 public class AppDbContext : DbContext
@@ -9,7 +10,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<User> Users => Set<User>();
-    public DbSet<EventEnvelopeEntity> EventEnvelopes => Set<EventEnvelopeEntity>();
+    public DbSet<EventEnvelope> EventEnvelopes => Set<EventEnvelope>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,13 +18,18 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
 
-        modelBuilder.Entity<EventEnvelopeEntity>(entity =>
+        modelBuilder.Entity<EventEnvelope>(envelope =>
         {
-            entity.ToTable("UserEvents");
-            entity.HasKey(e => e.EventId);
-            entity.Property(e => e.PayloadJson).IsRequired();
-            entity.Property(e => e.MetadataJson).HasDefaultValue("{}");
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            envelope.HasKey(e => e.Id);
+            envelope.Property(e => e.Payload).IsRequired();
+            envelope.Property(e => e.Metadata)
+             .HasConversion(
+                 new ValueConverter<Dictionary<string, string>, string>(
+                     v => JsonConvert.SerializeObject(v),
+                     v => JsonConvert.DeserializeObject<Dictionary<string, string>>(v) ?? new Dictionary<string, string>()
+                 ))
+             .HasColumnType("jsonb");
+            envelope.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
 

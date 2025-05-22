@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using UserService.Application.SeedWork;
 using UserService.Domain;
 using UserService.Domain.Users;
@@ -41,15 +42,22 @@ public class CreateUserCmdHandler : IRequestHandler<CreateUserCmd, Response>
 
         await _unitOfWork.UserRepository.AddAsync(newUser);
 
-        var userEvent = new UserCreatedEvent( newUser.Id ) { CreatedAt = DateTimeOffset.Now };
+        var userEvent = new UserCreatedEvent(newUser.Id)
+        {
+            CreatedAt = DateTimeOffset.UtcNow
+        };
 
-        var kafkaEvent = new EventEnvelope<UserCreatedEvent>
-        (
-           userEvent
+        var envelope = new EventEnvelope(
+            payload: JsonConvert.SerializeObject(userEvent),
+            eventType: nameof(UserCreatedEvent),
+            aggregateId: newUser.Id,
+            aggregateType: "User",
+            source: "User-Service"
         );
 
-        await _unitOfWork.EventEnvelopeRepository.AddAsync(kafkaEvent);
+        await _unitOfWork.EventEnvelopeRepository.AddAsync(envelope);
         await _unitOfWork.SaveChangesAsync();
+
         return new Response(newUser);
     }
 }

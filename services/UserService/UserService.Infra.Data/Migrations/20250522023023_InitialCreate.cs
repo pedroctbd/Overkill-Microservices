@@ -3,30 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace UserService.Infra.Data.Migrations.Events
+namespace UserService.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class user_events_table : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "UserEvents",
+                name: "EventEnvelopes",
                 columns: table => new
                 {
-                    EventId = table.Column<string>(type: "text", nullable: false),
-                    PayloadJson = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Payload = table.Column<string>(type: "text", nullable: false),
                     EventType = table.Column<string>(type: "text", nullable: false),
+                    AggregateId = table.Column<string>(type: "text", nullable: false),
+                    AggregateType = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    TraceId = table.Column<string>(type: "text", nullable: true),
-                    InitiatorId = table.Column<string>(type: "text", nullable: false),
-                    PartitionId = table.Column<string>(type: "text", nullable: true),
-                    MetadataJson = table.Column<string>(type: "text", nullable: false, defaultValue: "{}")
+                    Source = table.Column<string>(type: "text", nullable: false),
+                    Metadata = table.Column<string>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserEvents", x => x.EventId);
+                    table.PrimaryKey("PK_EventEnvelopes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +59,7 @@ namespace UserService.Infra.Data.Migrations.Events
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserEvents");
+                name: "EventEnvelopes");
 
             migrationBuilder.DropTable(
                 name: "Users");

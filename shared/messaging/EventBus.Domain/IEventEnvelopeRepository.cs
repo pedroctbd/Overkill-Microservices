@@ -1,8 +1,6 @@
-﻿using EventBus.Domain;
-
-namespace EventBus.Api;
+﻿namespace EventBus.Api;
 
 public interface IEventEnvelopeRepository
 {
-    Task AddAsync<T>(EventEnvelope<T> envelope) where T : IEvent;
+    Task AddAsync(EventEnvelope envelope);
 }

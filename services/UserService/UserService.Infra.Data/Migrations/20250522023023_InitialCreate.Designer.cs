@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserService.Infra.Data;
 
 #nullable disable
 
-namespace UserService.Infra.Data.Migrations.Events
+namespace UserService.Infra.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250522023023_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,9 +25,17 @@ namespace UserService.Infra.Data.Migrations.Events
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EventBus.Domain.EventEnvelopeEntity", b =>
+            modelBuilder.Entity("EventBus.Api.EventEnvelope", b =>
                 {
-                    b.Property<string>("EventId")
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AggregateId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("AggregateType")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -36,29 +47,21 @@ namespace UserService.Infra.Data.Migrations.Events
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("InitiatorId")
+                    b.Property<string>("Metadata")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("Payload")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("MetadataJson")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("{}");
-
-                    b.Property<string>("PartitionId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PayloadJson")
+                    b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TraceId")
-                        .HasColumnType("text");
+                    b.HasKey("Id");
 
-                    b.HasKey("EventId");
-
-                    b.ToTable("UserEvents", (string)null);
+                    b.ToTable("EventEnvelopes");
                 });
 
             modelBuilder.Entity("UserService.Domain.Users.User", b =>
