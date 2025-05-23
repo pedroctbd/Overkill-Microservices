@@ -38,3 +38,28 @@ services:
       KAFKA_CLUSTERS_0_NAME: local-kafka
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+
+  connect:
+    image: debezium/connect:2.1
+    container_name: connect
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "8083:8083"  
+    environment:
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
+      BOOTSTRAP_SERVERS: kafka:29092
+
+  connector-register:
+    image: appropriate/curl:latest
+    depends_on:
+      - connect
+    volumes:
+      - ./register-connector.sh:/register-connector.sh
+    command: ["/bin/sh", "-c", "/register-connector.sh"]
+
+

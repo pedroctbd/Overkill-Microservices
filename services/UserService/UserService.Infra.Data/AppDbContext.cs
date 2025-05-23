@@ -20,6 +20,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<EventEnvelope>(envelope =>
         {
+            envelope.ToTable("Events");
             envelope.HasKey(e => e.Id);
             envelope.Property(e => e.Payload).IsRequired();
             envelope.Property(e => e.Metadata)
